@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI编程启蒙教程策划</title>
+    <style>
+        /* 基础样式 */
+        body {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: "Microsoft YaHei", sans-serif;
+            line-height: 1.4;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            background: white;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+        }
+
+        .title {
+            grid-column: 1 / -1;
+        }
+
+        .section {
+            margin: 15px 0;
+            padding: 0 10px;
+            break-inside: avoid;
+        }
+
+        /* 标题样式 */
+        .title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            margin: 10px 0 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #4CAF50;
+            color: #2c3e50;
+        }
+
+        /* 章节样式 */
+        .section {
+            margin: 25px 0;
+            padding: 0 10px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 15px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 18px;
+            background: #4CAF50;
+            margin-right: 8px;
+            border-radius: 2px;
+        }
+
+        /* 子章节样式 */
+        .sub-section {
+            margin: 15px 0;
+            padding-left: 15px;
+            border-left: 2px solid #e0e0e0;
+        }
+
+        .sub-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #34495e;
+            margin: 12px 0 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .sub-title::before {
+            content: "◆";
+            font-size: 12px;
+            margin-right: 8px;
+            color: #4CAF50;
+        }
+
+        /* 列表项样式 */
+        .content {
+            margin-left: 15px;
+        }
+
+        .list-item {
+            margin: 6px 0;
+            padding-left: 15px;
+            position: relative;
+            font-size: 14px;
+            color: #555;
+            transition: all 0.3s ease;
+        }
+
+        .list-item:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+        }
+
+        .list-item:hover {
+            color: #4CAF50;
+            transform: translateX(5px);
+        }
+
+        /* 下载按钮基础样式 */
+        #downloadBtn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 12px 24px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        #downloadBtn:hover {
+            background-color: #45a049;
+            box-shadow: 0 6px 16px rgba(76,175,80,0.4);
+            transform: translateY(-2px);
+        }
+
+        #downloadBtn::before {
+            content: "↓";
+            font-size: 16px;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            .section-title {
+                font-size: 18px;
+            }
+            
+            .sub-title {
+                font-size: 15px;
+            }
+            
+            .list-item {
+                font-size: 13px;
+            }
+
+            /* 移动端按钮组样式优化 */
+            .button-group {
+                bottom: 20px;
+                left: 20px;
+                right: 20px;
+                width: calc(100% - 40px);
+                justify-content: stretch;
+            }
+
+            .button-group button {
+                flex: 1;
+                padding: 12px 0;
+                font-size: 14px;
+                justify-content: center;
+            }
+
+            /* 移动端触摸优化 */
+            [contenteditable="true"]:hover {
+                background: none;
+            }
+
+            [contenteditable="true"]:focus {
+                background: rgba(76,175,80,0.1);
+            }
+
+            /* 增加触摸区域 */
+            .list-item {
+                padding: 8px 0;
+            }
+
+            /* 在移动端隐藏下载按钮 */
+            #downloadBtn {
+                display: none;
+            }
+        }
+
+        /* 针对不同设备的优化 */
+        @media screen and (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+
+            .container {
+                padding: 15px;
+                border-radius: 8px;
+            }
+
+            .title {
+                font-size: 22px;
+                margin: 5px 0 20px;
+            }
+
+            .section {
+                margin: 10px 0;
+                padding: 0 5px;
+            }
+
+            .sub-section {
+                margin: 10px 0;
+                padding-left: 10px;
+            }
+
+            .list-item {
+                margin: 4px 0;
+                padding-left: 12px;
+            }
+        }
+
+        /* 针对横屏模式的优化 */
+        @media screen and (orientation: landscape) and (max-height: 500px) {
+            .container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .button-group {
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                width: calc(100% - 20px);
+            }
+
+            .button-group button {
+                padding: 8px 0;
+                font-size: 12px;
+            }
+        }
+
+        /* 针对折叠屏的优化 */
+        @media screen and (max-width: 350px) {
+            .container {
+                padding: 10px;
+            }
+
+            .title {
+                font-size: 20px;
+            }
+
+            .section-title {
+                font-size: 16px;
+            }
+
+            .sub-title {
+                font-size: 14px;
+            }
+
+            .list-item {
+                font-size: 12px;
+            }
+        }
+
+        /* 优化触摸交互 */
+        @media (hover: none) and (pointer: coarse) {
+            .list-item {
+                padding: 8px 0;  /* 增加触摸区域 */
+            }
+
+            #downloadBtn, #resetBtn {
+                padding: 12px 24px;  /* 增大按钮触摸区域 */
+            }
+        }
+
+        /* 打印样式优化 */
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .container {
+                box-shadow: none;
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            
+            #downloadBtn {
+                display: none;
+            }
+        }
+
+        /* 按钮组样式优化 */
+        .button-group {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 2px;
+            z-index: 1000;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .button-group button {
+            padding: 12px 20px;
+            border: none;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        #editBtn {
+            background-color: #4CAF50;
+        }
+
+        #editBtn:hover {
+            background-color: #45a049;
+        }
+
+        #resetBtn {
+            background-color: #f44336;
+        }
+
+        #resetBtn:hover {
+            background-color: #d32f2f;
+        }
+
+        /* 编辑状态样式 */
+        [contenteditable="true"] {
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        [contenteditable="true"]:hover {
+            background: rgba(76,175,80,0.1);
+        }
+
+        [contenteditable="true"]:focus {
+            background: rgba(76,175,80,0.15);
+            box-shadow: 0 0 0 2px rgba(76,175,80,0.2);
+        }
+
+        .shake {
+            animation: shake 0.2s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-2px); }
+            75% { transform: translateX(2px); }
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .container {
+                margin: 0 10px;
+                padding: 15px;
+            }
+
+            .button-group {
+                bottom: 20px;
+                width: calc(100% - 40px);
+                max-width: 300px;
+            }
+
+            .button-group button {
+                flex: 1;
+                padding: 12px 0;
+                justify-content: center;
+                font-size: 14px;
+            }
+
+            /* 移动端编辑状态优化 */
+            [contenteditable="true"] {
+                -webkit-user-select: text;
+                user-select: text;
+                cursor: text;
+            }
+
+            [contenteditable="true"]:focus {
+                background: rgba(76,175,80,0.1);
+                padding: 5px;
+                margin: -5px;
+                border-radius: 4px;
+            }
+        }
+
+        /* 更小屏幕的进一步优化 */
+        @media (max-width: 480px) {
+            .button-group {
+                transform: scale(0.8);
+            }
+
+            #downloadBtn {
+                transform: scale(0.8);
+            }
+        }
+
+        /* 超小屏幕的极限适配 */
+        @media (max-width: 360px) {
+            .button-group {
+                transform: scale(0.9) translateX(-50%);
+                transform-origin: center bottom;
+            }
+        }
+    </style>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 创建按钮组容器
+            const buttonGroup = document.createElement('div');
+            buttonGroup.className = 'button-group';
+
+            // 创建编辑按钮
+            const editBtn = document.createElement('button');
+            editBtn.id = 'editBtn';
+            editBtn.innerHTML = '✎ 编辑';
+            
+            // 创建重置按钮
+            const resetBtn = document.createElement('button');
+            resetBtn.id = 'resetBtn';
+            resetBtn.innerHTML = '↺ 重置';
+
+            // 添加编辑功能
+            let isEditMode = false;
+            editBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                isEditMode = !isEditMode;
+                if (isEditMode) {
+                    editBtn.innerHTML = '✓ 完成';
+                    editBtn.style.backgroundColor = '#45a049';
+                    document.querySelectorAll('.title, .section-title, .sub-title, .list-item').forEach(element => {
+                        element.contentEditable = true;
+                        element.classList.add('shake');
+                        // 移动端优化：添加可选择文本的类
+                        element.classList.add('editable');
+                    });
+                } else {
+                    editBtn.innerHTML = '✎ 编辑';
+                    editBtn.style.backgroundColor = '#4CAF50';
+                    document.querySelectorAll('.title, .section-title, .sub-title, .list-item').forEach(element => {
+                        element.contentEditable = false;
+                        element.classList.remove('shake');
+                        element.classList.remove('editable');
+                        if (element.dataset.key) {
+                            localStorage.setItem(element.dataset.key, element.textContent);
+                        }
+                    });
+                }
+            });
+
+            // 重置功能
+            resetBtn.addEventListener('click', function(e) {
+                e.preventDefault(); // 防止移动端触发多次
+                // 使用原生确认对话框
+                if (window.confirm('确定要重置所有内容吗？这将清除所有编辑过的内容。')) {
+                    try {
+                        localStorage.clear();
+                        window.location.reload();
+                    } catch (error) {
+                        alert('重置失败，请刷新页面重试');
+                        console.error('Reset error:', error);
+                    }
+                }
+            });
+
+            // 添加触摸事件支持
+            if ('ontouchstart' in window) {
+                document.querySelectorAll('.title, .section-title, .sub-title, .list-item').forEach(element => {
+                    element.addEventListener('touchstart', function(e) {
+                        if (isEditMode) {
+                            e.stopPropagation();
+                        }
+                    });
+                });
+            }
+
+            // 防止移动端键盘弹出时页面变形
+            if ('virtualKeyboard' in navigator) {
+                navigator.virtualKeyboard.overlaysContent = true;
+            }
+
+            // 添加按钮到按钮组
+            buttonGroup.appendChild(editBtn);
+            buttonGroup.appendChild(resetBtn);
+            document.body.appendChild(buttonGroup);
+
+            // 初始化可编辑元素
+            document.querySelectorAll('.title, .section-title, .sub-title, .list-item').forEach(element => {
+                const key = `content_${Math.random().toString(36).substr(2, 9)}`;
+                element.dataset.key = key;
+                
+                const savedContent = localStorage.getItem(key);
+                if (savedContent) {
+                    element.textContent = savedContent;
+                }
+
+                // 添加编辑时的保存功能
+                element.addEventListener('blur', function() {
+                    if (isEditMode) {
+                        localStorage.setItem(element.dataset.key, element.textContent);
+                    }
+                });
+
+                // 保持回车保存功能
+                element.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        element.blur();
+                    }
+                });
+            });
+        });
+
+        // 下载图片功能
+        function downloadAsImage() {
+            html2canvas(document.querySelector('.container')).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'AI编程启蒙教程策划.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="title">AI编程启蒙教程策划</div>
+
+        <div class="section">
+            <div class="section-title">课程定位</div>
+            <div class="sub-section">
+                <div class="sub-title">目标群体</div>
+                <div class="content">
+                    <div class="list-item">7-15岁中小学生</div>
+                    <div class="list-item">对编程感兴趣的青少年</div>
+                    <div class="list-item">想制作自己应用的学生</div>
+                    <div class="list-item">希望了解AI的家长和学生</div>
+                </div>
+            </div>
+            <div class="sub-section">
+                <div class="sub-title">教学理念</div>
+                <div class="content">
+                    <div class="list-item">让编程变得简单有趣</div>
+                    <div class="list-item">激发创造力和想象力</div>
+                    <div class="list-item">培养科技思维</div>
+                    <div class="list-item">注重实践和应用</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">课程特色</div>
+            <div class="sub-section">
+                <div class="sub-title">快速见效</div>
+                <div class="content">
+                    <div class="list-item">一节课即可完成作品</div>
+                    <div class="list-item">当场看到运行效果</div>
+                    <div class="list-item">即时修改和优化</div>
+                    <div class="list-item">建立学习信心</div>
+                </div>
+            </div>
+            <div class="sub-section">
+                <div class="sub-title">趣味性强</div>
+                <div class="content">
+                    <div class="list-item">对话式编程</div>
+                    <div class="list-item">互动性教学</div>
+                    <div class="list-item">游戏化学习</div>
+                    <div class="list-item">创意性开发</div>
+                </div>
+            </div>
+            <div class="sub-section">
+                <div class="sub-title">实用性高</div>
+                <div class="content">
+                    <div class="list-item">制作实用小程序</div>
+                    <div class="list-item">开发个人应用</div>
+                    <div class="list-item">解决实际问题</div>
+                    <div class="list-item">学以致用</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">课程体系</div>
+            <div class="sub-section">
+                <div class="sub-title">第一阶段：AI对话入门（2课时）</div>
+                <div class="content">
+                    <div class="sub-title">第1课：认识AI助手</div>
+                    <div class="list-item">AI助手介绍</div>
+                    <div class="list-item">基础对话方法</div>
+                    <div class="list-item">简单需求表达</div>
+                    <div class="list-item">理解AI回答</div>
+                    
+                    <div class="sub-title">第2课：提示词技巧</div>
+                    <div class="list-item">提示词结构</div>
+                    <div class="list-item">表达方式训练</div>
+                    <div class="list-item">需求优化方法</div>
+                    <div class="list-item">实战练习</div>
+                </div>
+            </div>
+
+            <div class="sub-section">
+                <div class="sub-title">第二阶段：网页应用基础（2课时）</div>
+                <div class="content">
+                    <div class="sub-title">第3课：HTML基础</div>
+                    <div class="list-item">网页结构认知</div>
+                    <div class="list-item">基础标签使用</div>
+                    <div class="list-item">简单页面制作</div>
+                    <div class="list-item">效果即时预览</div>
+                    
+                    <div class="sub-title">第4课：样式调整</div>
+                    <div class="list-item">颜色修改</div>
+                    <div class="list-item">布局调整</div>
+                    <div class="list-item">字体设置</div>
+                    <div class="list-item">美化界面</div>
+                </div>
+            </div>
+
+            <div class="sub-section">
+                <div class="sub-title">第三阶段：实战项目（2课时）</div>
+                <div class="content">
+                    <div class="sub-title">第5课：记事本应用</div>
+                    <div class="list-item">需求分析</div>
+                    <div class="list-item">功能设计</div>
+                    <div class="list-item">界面制作</div>
+                    <div class="list-item">功能实现</div>
+                    
+                    <div class="sub-title">第6课：简单游戏</div>
+                    <div class="list-item">游戏策划</div>
+                    <div class="list-item">界面设计</div>
+                    <div class="list-item">交互实现</div>
+                    <div class="list-item">完整体验</div>
+                </div>
+            </div>
+
+            <div class="sub-section">
+                <div class="sub-title">第四阶段：应用打包（2课时）</div>
+                <div class="content">
+                    <div class="sub-title">第7课：本地预览</div>
+                    <div class="list-item">项目优化</div>
+                    <div class="list-item">代码检查</div>
+                    <div class="list-item">功能测试</div>
+                    <div class="list-item">性能提升</div>
+                    
+                    <div class="sub-title">第8课：发布应用</div>
+                    <div class="list-item">打包流程</div>
+                    <div class="list-item">安装测试</div>
+                    <div class="list-item">问题修复</div>
+                    <div class="list-item">成果展示</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">教学方法</div>
+            <div class="sub-section">
+                <div class="sub-title">示范引导</div>
+                <div class="content">
+                    <div class="list-item">老师现场演示</div>
+                    <div class="list-item">学生同步操作</div>
+                    <div class="list-item">及时纠正问题</div>
+                    <div class="list-item">鼓励创新思维</div>
+                </div>
+            </div>
+            <div class="sub-section">
+                <div class="sub-title">互动练习</div>
+                <div class="content">
+                    <div class="list-item">小组讨论</div>
+                    <div class="list-item">问题解决</div>
+                    <div class="list-item">作品展示</div>
+                    <div class="list-item">经验分享</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">课程安排</div>
+            <div class="sub-section">
+                <div class="sub-title">时间安排</div>
+                <div class="content">
+                    <div class="list-item">每周末固定时间</div>
+                    <div class="list-item">每课2小时</div>
+                    <div class="list-item">课间休息15分钟</div>
+                    <div class="list-item">课后答疑30分钟</div>
+                </div>
+            </div>
+            <div class="sub-section">
+                <div class="sub-title">班级规模</div>
+                <div class="content">
+                    <div class="list-item">小班教学</div>
+                    <div class="list-item">每班6-12人</div>
+                    <div class="list-item">配备助教</div>
+                    <div class="list-item">保证教学质量</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">配套资源</div>
+            <div class="sub-section">
+                <div class="sub-title">教学资料</div>
+                <div class="content">
+                    <div class="list-item">详细课件</div>
+                    <div class="list-item">操作手册</div>
+                    <div class="list-item">案例代码</div>
+                    <div class="list-item">练习题库</div>
+                </div>
+            </div>
+            <div class="sub-section">
+                <div class="sub-title">技术支持</div>
+                <div class="content">
+                    <div class="list-item">在线答疑群</div>
+                    <div class="list-item">远程指导</div>
+                    <div class="list-item">问题解决</div>
+                    <div class="list-item">技术咨询</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">收费标准</div>
+            <div class="sub-section">
+                <div class="sub-title">体验课</div>
+                <div class="content">
+                    <div class="list-item">99元/课时</div>
+                    <div class="list-item">体验课抵扣</div>
+                    <div class="list-item">免费试听</div>
+                    <div class="list-item">无责退款</div>
+                </div>
+            </div>
+            <div class="sub-section">
+                <div class="sub-title">基础班</div>
+                <div class="content">
+                    <div class="list-item">2999元/8课时</div>
+                    <div class="list-item">含教材资料</div>
+                    <div class="list-item">技术支持</div>
+                    <div class="list-item">项目指导</div>
+                </div>
+            </div>
+            <div class="sub-section">
+                <div class="sub-title">进阶班</div>
+                <div class="content">
+                    <div class="list-item">3999元/8课时</div>
+                    <div class="list-item">深入学习</div>
+                    <div class="list-item">项目开发</div>
+                    <div class="list-item">一对一指导</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">推广方案</div>
+            <div class="sub-section">
+                <div class="sub-title">线上推广</div>
+                <div class="content">
+                    <div class="list-item">社交媒体</div>
+                    <div class="list-item">家长群</div>
+                    <div class="list-item">教育平台</div>
+                    <div class="list-item">视频展示</div>
+                </div>
+            </div>
+            <div class="sub-section">
+                <div class="sub-title">线下活动</div>
+                <div class="content">
+                    <div class="list-item">免费体验课</div>
+                    <div class="list-item">作品展示会</div>
+                    <div class="list-item">家长交流会</div>
+                    <div class="list-item">学校合作</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">风险控制</div>
+            <div class="sub-section">
+                <div class="sub-title">试点阶段</div>
+                <div class="content">
+                    <div class="list-item">小规模开展</div>
+                    <div class="list-item">收集反馈</div>
+                    <div class="list-item">及时调整</div>
+                    <div class="list-item">完善体系</div>
+                </div>
+            </div>
+            <div class="sub-section">
+                <div class="sub-title">扩展阶段</div>
+                <div class="content">
+                    <div class="list-item">逐步扩大</div>
+                    <div class="list-item">标准化教学</div>
+                    <div class="list-item">培训教师</div>
+                    <div class="list-item">建立品牌</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button id="downloadBtn">下载为图片</button>
+
+    <script>
+        function downloadAsImage() {
+            html2canvas(document.querySelector('.container')).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'AI编程启蒙教程策划.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+
+        document.getElementById('downloadBtn').onclick = downloadAsImage;
+    </script>
+</body>
+</html>
